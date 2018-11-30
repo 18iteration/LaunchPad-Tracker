@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -19,25 +18,23 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
     final String url = "https://api.spacexdata.com/v3/launches";
 
     private ArrayList<String> imgUrl = new ArrayList<>();
     private ArrayList<String> name = new ArrayList<>();
     private ArrayList<String> date = new ArrayList<>();
+    private ArrayList<String> youtubeLink = new ArrayList<>();
 
         @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         linkRequest(url);
-        Log.d(TAG, "onCreate: started.");
-    }
+        }
 
     private void initRecycleView(){
-        Log.d(TAG,"initRecycleView: init recycle");
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(this,imgUrl,name,date);
+        RecyclerViewAdapter recyclerAdapter = new RecyclerViewAdapter(this,imgUrl,name,date,youtubeLink);
         recyclerView.setAdapter(recyclerAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -59,13 +56,12 @@ public class MainActivity extends AppCompatActivity {
                         try {
                             String responseData = response.body().string();
                             JSONArray json = new JSONArray(responseData);
-                            System.out.println(json.length());
-                            for (int i = json.length()-30; i > 0; i--) {
-                                imgUrl.add(json.getJSONObject(i).getJSONObject("links").getString("mission_patch_small"));
+                            for (int i = json.length()-1; i > 0; i--) {
+                                imgUrl.add(json.getJSONObject(i).getJSONObject("links").getString("mission_patch"));
                                 name.add(json.getJSONObject(i).getString("mission_name"));
                                 date.add(json.getJSONObject(i).getString("launch_date_utc"));
+                                youtubeLink.add(json.getJSONObject(i).getJSONObject("links").getString("video_link"));
                             }
-                            System.out.println(imgUrl.size());
                             initRecycleView();
                         } catch (JSONException e) {
                             e.printStackTrace();
