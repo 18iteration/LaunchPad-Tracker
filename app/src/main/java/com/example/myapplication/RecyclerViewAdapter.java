@@ -19,13 +19,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mNames;
     private ArrayList<String> mDates;
     private ArrayList<String> mYoutubeLink;
+    private ArrayList<String> mLanding_Intent;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> imageUrls, ArrayList<String> names, ArrayList<String> dates, ArrayList<String> youtubeLink) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> imageUrls, ArrayList<String> names, ArrayList<String> dates, ArrayList<String> youtubeLink, ArrayList<String> landing_Intent) {
         mImageUrls = imageUrls;
         mNames = names;
         mDates = dates;
         mYoutubeLink = youtubeLink;
+        mLanding_Intent = landing_Intent;
         mContext = context;
     }
 
@@ -37,14 +39,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
-        Glide.with(mContext)
-                .asBitmap()
-                .load(mImageUrls.get(position))
-                .into(holder.image);
-
+        Glide.with(mContext).asBitmap().load(mImageUrls.get(position)).into(holder.image);
         holder.name.setText(mNames.get(position));
         holder.date.setText(mDates.get(position));
         holder.youtubeLink.setText(mYoutubeLink.get(position));
+        holder.landing_Intent.setText(mLanding_Intent.get(position));
     }
 
     @Override
@@ -52,12 +51,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mImageUrls.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
-
+    public class ViewHolder extends RecyclerView.ViewHolder {
         CircleImageView image;
         TextView name;
         TextView date;
         TextView youtubeLink;
+        TextView landing_Intent;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -65,6 +64,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             name = itemView.findViewById(R.id.name);
             date = itemView.findViewById(R.id.date);
             youtubeLink = itemView.findViewById(R.id.youtubeLink);
+            landing_Intent = itemView.findViewById(R.id.landing_intent);
         }
     }
 }
