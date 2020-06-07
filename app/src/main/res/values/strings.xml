@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">LaunchPad Tracker</string>
     <string name="title_upcoming">Upcoming</string>
-    <string name="title_information">Information</string>
+    <string name="title_stream">Stream</string>
     <string name="title_settings">Settings</string>
+    <string name="launch_cards">Launch Cards:</string>
+    <string name="request">Request</string>
+    <string name="night_mode">Night Mode</string>
+    <string name="landing">Landing</string>
 </resources>

@@ -2,10 +2,9 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/settingsConstraint"
+    android:id="@+id/settings_constraint"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
@@ -21,16 +20,16 @@
         app:menu="@menu/navigation" />
 
     <Switch
-        android:id="@+id/switch_Theme"
-        android:layout_width="272dp"
+        android:id="@+id/switch_theme"
+        android:layout_width="280dp"
         android:layout_height="30dp"
-        android:layout_marginStart="24dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
         android:buttonTintMode="multiply"
         android:checked="false"
         android:showText="false"
         android:splitTrack="false"
-        android:text="Night Mode      "
+        android:text="@string/night_mode"
         android:textAlignment="textStart"
         android:textAllCaps="false"
         android:textColor="@color/colorPrimaryDark"
@@ -42,35 +41,37 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:checked="false" />
 
-    <Button
-        android:id="@+id/requestBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:color/transparent"
-        android:fontFamily="@font/sarala"
-        android:text="Request "
-        android:textAlignment="textStart"
-        android:textAllCaps="false"
-        android:textColor="@color/colorPrimaryDark"
-        android:textSize="24sp"
-        android:typeface="normal"
-        app:layout_constraintStart_toEndOf="@+id/launchCardsText"
-        app:layout_constraintTop_toBottomOf="@+id/switch_Theme" />
-
     <TextView
-        android:id="@+id/launchCardsText"
+        android:id="@+id/launch_cards_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_below="@+id/switch_theme"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/sarala"
-        android:text="Launch Cards: "
+        android:text="@string/launch_cards"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         android:typeface="normal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/switch_Theme" />
+        app:layout_constraintTop_toBottomOf="@+id/switch_theme" />
+
+    <Button
+        android:id="@+id/request_button"
+        android:layout_width="134dp"
+        android:layout_height="35dp"
+        android:layout_below="@+id/switch_theme"
+        android:background="@android:color/transparent"
+        android:fontFamily="@font/sarala"
+        android:text="@string/request"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="14dp"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="24sp"
+        android:typeface="normal"
+        app:layout_constraintStart_toEndOf="@+id/launch_cards_text"
+        app:layout_constraintTop_toBottomOf="@+id/switch_theme" />
 
 </android.support.constraint.ConstraintLayout>

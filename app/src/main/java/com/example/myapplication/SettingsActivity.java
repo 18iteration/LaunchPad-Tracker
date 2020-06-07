@@ -14,13 +14,15 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity {
-    Intent mainIntent;
-    Switch switch_ThemeBtn;
-    TextView requestText;
-    Button request_Btn;
-    View constraintLayout;
+    Intent main_intent;
+    Intent stream_intent;
+    Switch switch_theme_button;
+    TextView launch_cards_text;
+    Button request_button;
+    View constraint_layout;
     SharedPreferences preferences;
     SharedPreferences.Editor editor;
 
@@ -31,11 +33,12 @@ public class SettingsActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_upcoming:
-                    startActivity(mainIntent);
+                    startActivity(main_intent);
                     return true;
-                case R.id.information:
+                case R.id.navigation_stream:
+                    startActivity(stream_intent);
                     return true;
-                case R.id.settings:
+                case R.id.navigation_settings:
                     return true;
             }
             return false;
@@ -50,21 +53,23 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
         preferences = getSharedPreferences("MyPref", 0);
         editor = preferences.edit();
-        switch_ThemeBtn = findViewById(R.id.switch_Theme);
-        requestText = findViewById(R.id.launchCardsText);
-        request_Btn = findViewById(R.id.requestBtn);
-        constraintLayout = findViewById(R.id.settingsConstraint);
-        if (preferences.contains("darkMode")){
-            if(preferences.getBoolean("darkMode",false)){
+
+        switch_theme_button = findViewById(R.id.switch_theme);
+        launch_cards_text = findViewById(R.id.launch_cards_text);
+        request_button = findViewById(R.id.request_button);
+        constraint_layout = findViewById(R.id.settings_constraint);
+
+        if (preferences.contains("darkMode")) {
+            if (preferences.getBoolean("darkMode", false)) {
                 napTime();
-            }else {
+            } else {
                 dayTime();
             }
         }
-        switch_ThemeBtn.setOnClickListener(new View.OnClickListener() {
+        switch_theme_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switch (switch_ThemeBtn.isChecked()+""){
+                switch (switch_theme_button.isChecked() + "") {
                     case "true":
                         napTime();
                         editor.putBoolean("darkMode", true);
@@ -74,27 +79,38 @@ public class SettingsActivity extends AppCompatActivity {
                         editor.putBoolean("darkMode", false);
                         break;
                 }
-                editor.commit();
+                editor.apply();
             }
         });
-        mainIntent = new Intent(this, MainActivity.class);
+        request_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "RENEWING DATA.", Toast.LENGTH_SHORT).show();
+                editor.putBoolean("renew_data", true);
+                editor.apply();
+            }
+        });
+        main_intent = new Intent(getApplicationContext(), MainActivity.class);
+        stream_intent = new Intent(getApplicationContext(), StreamActivity.class);
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
-    private void napTime(){
-        constraintLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorDark));
-        switch_ThemeBtn.setTextColor(getColor(R.color.colorOrange));
-        switch_ThemeBtn.setChecked(true);
-        requestText.setTextColor(getColor(R.color.colorOrange));
-        request_Btn.setTextColor(getColor(R.color.colorOrange));
-        request_Btn.setBackgroundColor(getColor(R.color.colorDark));
+
+    public void napTime() {
+        constraint_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorDark_background));
+        switch_theme_button.setTextColor(getColor(R.color.colorLight));
+        switch_theme_button.setChecked(true);
+        launch_cards_text.setTextColor(getColor(R.color.colorLight));
+        request_button.setTextColor(getColor(R.color.colorLight));
+        request_button.setBackgroundColor(getColor(R.color.colorDark));
     }
-    private void dayTime(){
-        constraintLayout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorLight));
-        switch_ThemeBtn.setTextColor(getColor(R.color.colorPrimaryDark));
-        switch_ThemeBtn.setChecked(false);
-        requestText.setTextColor(getColor(R.color.colorPrimaryDark));
-        request_Btn.setTextColor(getColor(R.color.colorPrimaryDark));
-        request_Btn.setBackgroundColor(getColor(R.color.colorLight));
+
+    private void dayTime() {
+        constraint_layout.setBackgroundColor(ContextCompat.getColor(getApplicationContext(), R.color.colorLight_background));
+        switch_theme_button.setTextColor(getColor(R.color.colorDark));
+        switch_theme_button.setChecked(false);
+        launch_cards_text.setTextColor(getColor(R.color.colorDark));
+        request_button.setTextColor(getColor(R.color.colorDark));
+        request_button.setBackgroundColor(getColor(R.color.colorLight));
     }
 }

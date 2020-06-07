@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,14 +19,16 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mImageUrls;
     private ArrayList<String> mNames;
     private ArrayList<String> mDates;
+    private ArrayList<String> mEtas;
     private ArrayList<String> mYoutubeLink;
     private ArrayList<String> mLanding_Intent;
     private Context mContext;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> imageUrls, ArrayList<String> names, ArrayList<String> dates, ArrayList<String> youtubeLink, ArrayList<String> landing_Intent) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> imageUrls, ArrayList<String> names, ArrayList<String> dates, ArrayList<String> etas, ArrayList<String> youtubeLink, ArrayList<String> landing_Intent) {
         mImageUrls = imageUrls;
         mNames = names;
         mDates = dates;
+        mEtas = etas;
         mYoutubeLink = youtubeLink;
         mLanding_Intent = landing_Intent;
         mContext = context;
@@ -42,6 +45,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Glide.with(mContext).asBitmap().load(mImageUrls.get(position)).into(holder.image);
         holder.name.setText(mNames.get(position));
         holder.date.setText(mDates.get(position));
+        holder.eta.setText(mEtas.get(position));
         holder.youtubeLink.setText(mYoutubeLink.get(position));
         holder.landing_Intent.setText(mLanding_Intent.get(position));
     }
@@ -55,7 +59,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         CircleImageView image;
         TextView name;
         TextView date;
-        TextView youtubeLink;
+        TextView eta;
+        Button youtubeLink;
         TextView landing_Intent;
 
         public ViewHolder(View itemView) {
@@ -63,7 +68,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             image = itemView.findViewById(R.id.image_view);
             name = itemView.findViewById(R.id.name);
             date = itemView.findViewById(R.id.date);
-            youtubeLink = itemView.findViewById(R.id.youtubeLink);
+            eta = itemView.findViewById(R.id.eta);
+            youtubeLink = itemView.findViewById(R.id.youtube_link);
             landing_Intent = itemView.findViewById(R.id.landing_intent);
         }
     }
